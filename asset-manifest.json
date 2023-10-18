@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/WebRTCVideoChat/static/css/main.073c9b0a.css",
-    "main.js": "/WebRTCVideoChat/static/js/main.0d584817.js",
+    "main.js": "/WebRTCVideoChat/static/js/main.637b0fd1.js",
     "static/js/787.28cb0dcd.chunk.js": "/WebRTCVideoChat/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/WebRTCVideoChat/index.html",
     "main.073c9b0a.css.map": "/WebRTCVideoChat/static/css/main.073c9b0a.css.map",
-    "main.0d584817.js.map": "/WebRTCVideoChat/static/js/main.0d584817.js.map",
+    "main.637b0fd1.js.map": "/WebRTCVideoChat/static/js/main.637b0fd1.js.map",
     "787.28cb0dcd.chunk.js.map": "/WebRTCVideoChat/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.0d584817.js"
+    "static/js/main.637b0fd1.js"
   ]
 }
