@@ -31,5 +31,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} #Secretに登録したTokenを設定
-          publish_branch: gh-pag
+          publish_branch: gh-pages
           publish_dir: ./build
