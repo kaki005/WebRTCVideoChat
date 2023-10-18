@@ -30,5 +30,6 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.PAT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }} #Secretに登録したTokenを設定
+          publish_branch: gh-pag
           publish_dir: ./build
