@@ -23,7 +23,7 @@ export default class SignalingClient {
         };
     }
 
-    Close = () => {
+    Disconnect = () => {
         this._connection?.close();
         this._connection = null;
     }

@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './index.css';
-import WebRTC from "./model/WebRTC";
+import WebRTC from "./model/WebRTC"
 
 interface IProp {
 }
@@ -19,6 +18,9 @@ const WebRTCVideo: React.FC<IProp> = (prop: IProp) => {
     const StartWebRTC = () => {
         client.StartWebRTCConnection();                                                 // WebRTCによる通信開始
     };
+    const StopWebRTC = () => {
+        client.StopWebRTCConnection();                                                  // 通信終了
+    }   
     const SendMessage = () => {
         setMessages((currentList) => [...currentList, `自分： ${sendText}`]);
         client.SendMessage(sendText);
@@ -76,6 +78,7 @@ const WebRTCVideo: React.FC<IProp> = (prop: IProp) => {
         </table>
         <div>
             <button onClick={StartWebRTC}>Start WebRTC</button>
+            <button onClick={StopWebRTC}>Stop WebRTC</button>
         </div>
         <div>
             <input type="text" placeholder="Your message.." onChange={onChangedSendText} value={sendText} />

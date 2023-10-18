@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import SignalingClient from "./SignalingClient";
-import assert from 'assert'
+import assert from 'assert';
 
 
 // WebRTCによる通信クラス
@@ -8,17 +8,21 @@ export default class WebRTC {
     // ===============================================================================
     // プロパティ
     // ===============================================================================
+     // コネクション
     get IsPeerConnectionSet() { return this._peerConnection != null };
     private _peerConnection: RTCPeerConnection | null;
 
+     // 経路候補クラス
     set IceCandidate(candidate: RTCIceCandidate) { this._candidate = candidate; }
     private _candidate: RTCIceCandidate | null;
 
+     // データチャネルが設定されているか
     IsDataChannelSet = () => { return this._dataChannel != null; }
+    //  データチャネル
     set DataChannel(channel: RTCDataChannel) { this._dataChannel = channel; }
     private _dataChannel: RTCDataChannel | null;
 
-
+     // メッセージ受信時のイベント
     set OnRecvMessage(func: (this: WebRTC, message: string) => any) { this._onRecvMessage = func; }
     private _onRecvMessage: ((this: WebRTC, message: string) => any) | null = null;
 
@@ -82,12 +86,25 @@ export default class WebRTC {
             .then(stream => {
                 this._localStream = stream;                         // ストリームを設定
                 this._localStream.getTracks().forEach(track => this._peerConnection!.addTrack(track, stream));  // トラックを相手に送るよう設定
+                stream.onremovetrack = (e) => {                     // トラック削除時のイベント
+                    this._localVideoRef.current!.srcObject = null;  // ビデオのソースを未設定に
+                };
                 this._localVideoRef.current!.srcObject = stream;    // ビデオを画面に表示
                 this.SendOfferSDP();                                // 相手に自分のSDPを送信
             })
             .catch(function (err) {
                 console.error(err);
             });
+    }
+
+    // -------------------------------------------------------------------------------
+    //#region + StopWebRTCConnection：WebRTCコネクションの終了
+    // -------------------------------------------------------------------------------
+    StopWebRTCConnection() {
+        this._dataChannel?.close();
+        this._dataChannel = null;
+        this._peerConnection?.close();
+        this._peerConnection = null;
     }
 
     // -------------------------------------------------------------------------------
@@ -174,7 +191,7 @@ export default class WebRTC {
     private OnDataChannelStateChanged = (event: Event) => {
         console.log('WebRTC channel の現在の状態 : ', this._dataChannel?.readyState);
         if (this._dataChannel?.readyState == "open") {
-            this._signalClient.Close();
+            this._signalClient.Disconnect();
         }
     };
 
